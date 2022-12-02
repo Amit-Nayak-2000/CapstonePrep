@@ -1,0 +1,11 @@
+"width"=0.069225
+"height"=0.048899
+"stop_width"=0.005000
+"inf_stop_x"=0.026922
+"superior_stop_x"=0.023634
+"superior_stop_angle"=98.696078
+"t1"=0.005000
+"t2"=0.012211
+"cover_holes_diam"=0.002400
+"cover_holes_depth"=0.004000
+"cover_hole_pitch"=0.000400

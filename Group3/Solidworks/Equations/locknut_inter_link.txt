@@ -1,0 +1,6 @@
+"height"=0.004000
+"thread_height"=0.003330
+"hex_base_diam"=0.005500
+"hole_diam"=0.003000
+"lock_diam"=0.002350
+"pitch"=0.000500

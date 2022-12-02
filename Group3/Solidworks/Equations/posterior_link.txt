@@ -1,0 +1,11 @@
+"B"=0.028825
+"L"=0.024277
+"H"=0.034682
+"T"=0.005000
+"bolt_hole_diameter"=0.003400
+"bearing_hole_diameter"=0.010000
+"bearing_depth"=0.004000
+"spring_arm_hole_pos"=0.009711
+"spring_arm_hole_max_diam"=0.006000
+"spring_arm_hole_min_diam"=0.003400
+"arm_hole_head_height"=0.001650

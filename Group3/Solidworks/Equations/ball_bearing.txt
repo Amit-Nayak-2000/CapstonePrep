@@ -1,0 +1,7 @@
+"width"=0.004000
+"OD"=0.010000
+"ID"=0.003000
+"race_thickness"=0.000750
+"D_ball"=0.001500
+"num_balls"=10.000000
+"track_depth"=0.000250
