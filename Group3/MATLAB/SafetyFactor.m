@@ -15,6 +15,7 @@ classdef SafetyFactor < handle
         tau_s2
         tau_s3
         buckling_s
+        frontalbending_s
         
         % Inferior Link
         sigma_ix
@@ -28,6 +29,7 @@ classdef SafetyFactor < handle
         tau_i2
         tau_i3
         buckling_i
+        frontalbending_i
         
         % Anterior Link
         sigma_a1y
@@ -38,6 +40,7 @@ classdef SafetyFactor < handle
         tau_a1
         tau_a2
         buckling_a
+        frontalbending_a
         
         % Posterior Link
         sigma_p1y
@@ -48,6 +51,7 @@ classdef SafetyFactor < handle
         tau_p1
         tau_p2
         buckling_p
+        frontalbending_p
 
         % Velcro
         tau_vt

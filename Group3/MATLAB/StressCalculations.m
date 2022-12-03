@@ -1,4 +1,4 @@
-function [] = StressCalculations(S, I, A, P, TS1, TS2, VT, VC, Bolt, Bearing, SF)
+function [] = StressCalculations(S, I, A, P, TS1, TS2, VT, VC, Bolt, Bearing, SF, ZF)
 % calculates stresses related to S link
 % inputs: (Part Objects)
 % output: [Calculated Safety Factors (SF object)]
@@ -107,7 +107,7 @@ SF.tau_s1 = S.SSY/tau_s1;
 SF.tau_s2 = S.SSY/tau_s2;
 SF.tau_s3 = S.SSY/tau_s3;
 SF.buckling_s = -1*((pi^2*S.E*S.B2*S.T^3)/(12*(S.H3-S.H2)^2)) / ((sigma_s1y)*S.B2*S.T);
-
+SF.frontalbending_s = S.SY / ( (ZF.OA_KAM - ZF.Mk)*((S.B3/2) + S.T) /( (S.B2*S.T^3) / 12 )  );
 %% Inferior Link
 
 % SYMBOLS
@@ -203,7 +203,7 @@ SF.tau_i1 = I.SSY/tau_i1;
 SF.tau_i2 = I.SSY/tau_i2;
 SF.tau_i3 = I.SSY/tau_i3;
 SF.buckling_i = -1*((pi^2*I.E*I.B2*I.T^3)/(12*(I.H3-I.H2)^2)) / ((sigma_i1y)*I.B2*I.T);
-
+SF.frontalbending_i = I.SY / ( (ZF.OA_KAM - ZF.Mk)*((I.B3/2) + I.T) /( (I.B2*I.T^3) / 12 )  );
 %% Anterior Link
 
 % SYMBOLS
@@ -402,14 +402,14 @@ SF.tau_ip = Bolt.SY/tau_ip;
 % SF.sigma_bearingip = Bearing.C_10 / C_ip;
 
 %% Obtain the minimum safety factor (critical) from all safety factors for each obj.
-Superiorarr = [abs(SF.sigma_sx), abs(SF.sigma_s1y), abs(SF.sigma_s2y), abs(SF.sigma_s3y), abs(SF.sigma_sbend1), abs(SF.sigma_sbend2), abs(SF.sigma_srupture), abs(SF.tau_s1), abs(SF.tau_s2), abs(SF.tau_s3)];
+Superiorarr = [abs(SF.sigma_sx), abs(SF.sigma_s1y), abs(SF.sigma_s2y), abs(SF.sigma_s3y), abs(SF.sigma_sbend1), abs(SF.sigma_sbend2), abs(SF.sigma_srupture), abs(SF.tau_s1), abs(SF.tau_s2), abs(SF.tau_s3), abs(SF.frontalbending_s)];
 if(SF.buckling_s > 0)
     Superiorarr(end + 1) = SF.buckling_s;
 end
 
 SF.SF_sup = min(Superiorarr);
 
-Inferiorarr = [abs(SF.sigma_ix), abs(SF.sigma_i1y), abs(SF.sigma_i2y), abs(SF.sigma_i3y), abs(SF.sigma_ibend1), abs(SF.sigma_ibend2), abs(SF.sigma_irupture), abs(SF.tau_i1), abs(SF.tau_i2), abs(SF.tau_i3)];
+Inferiorarr = [abs(SF.sigma_ix), abs(SF.sigma_i1y), abs(SF.sigma_i2y), abs(SF.sigma_i3y), abs(SF.sigma_ibend1), abs(SF.sigma_ibend2), abs(SF.sigma_irupture), abs(SF.tau_i1), abs(SF.tau_i2), abs(SF.tau_i3), abs(SF.frontalbending_i)];
 if(SF.buckling_i > 0)
     Inferiorarr(end + 1) = SF.buckling_i;
 end

@@ -105,7 +105,7 @@ for i=startframe:endframe
     Kinetic_Frontal(S,In,P,ZF,i,mass);
     
     %calculate stresses and safety factors of components
-    StressCalculations(S, In, A, P, T1, T2, VT, VC, Blt, Brng, SF);
+    StressCalculations(S, In, A, P, T1, T2, VT, VC, Blt, Brng, SF, ZF);
     
     %Put critical safety factors in critical safety factor arrays
     %Links

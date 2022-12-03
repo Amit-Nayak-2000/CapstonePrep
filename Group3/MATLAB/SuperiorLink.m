@@ -31,13 +31,13 @@ classdef SuperiorLink < handle
         
         %Physical Properties
         m % Mass (kg)
-        rho = 2705; %Density of Aluminium 1060-O (kg/m^3)
+        rho = 2710; %Density of Aluminium 1100-H16 (kg/m^3)
         I % Moment of inertia (kg m^2)
-        E = 68.9e9; % Elastic modulus of Aluminium 1060-O (Pa)
-        SU = 55e6; %Ultimate Tensile Strength of Aluminium 1060-O (Pa)
-        SY = 17e6; %Yield Strength of Aluminium 1060-O (Pa)
-        SSY = 0.55*17e6; %Shear Yield Strength of Aluminium 1060-O (Pa)
-        G = 26e9; %Shear modulus of Aluminium 1060-O (Pa)
+        E = 68.9e9; % Elastic modulus of Aluminium 1100-H16 (Pa)
+        SU = 130e6; %Ultimate Tensile Strength of Aluminium 1100-H16 (Pa)
+        SY = 115e6; %Yield Strength of Aluminium 1100-H16 (Pa)
+        SSY = 0.55*115e6; %Shear Yield Strength of Aluminium 1100-H16 (Pa)
+        G = 26e9; %Shear modulus of Aluminium 1100-H16 (Pa)
         
         
         %Dynamical Properties

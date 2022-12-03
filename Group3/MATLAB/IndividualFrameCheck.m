@@ -42,7 +42,7 @@ for i=startframe:endframe
     Kinetic_Frontal(S,In,P,ZF,i,mass);
     
     %Re-calculate Safety Factors
-    StressCalculations(S, In, A, P, T1, T2, VT, VC, Blt, Brng, SF);
+    StressCalculations(S, In, A, P, T1, T2, VT, VC, Blt, Brng, SF, ZF);
 
     
 end
