@@ -1,9 +1,9 @@
 "width"=0.101221
-"height"=0.080946
+"height"=0.078835
 "stop_width"=0.005000
 "inf_stop_x"=0.027955
 "superior_stop_x"=0.021901
-"superior_stop_angle"=102.203897
+"superior_stop_angle"=107.704683
 "t1"=0.005000
 "t2"=0.012879
 "cover_holes_diam"=0.002400

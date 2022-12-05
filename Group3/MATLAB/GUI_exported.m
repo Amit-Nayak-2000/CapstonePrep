@@ -3,6 +3,7 @@ classdef GUI_exported < matlab.apps.AppBase
     % Properties that correspond to app components
     properties (Access = public)
         MCG4322BGroup03UIFigure         matlab.ui.Figure
+        BRACEYOURSELFLabel              matlab.ui.control.Label
         YoudeservetostepintocomfortLabel  matlab.ui.control.Label
         ExitDesignerButton              matlab.ui.control.Button
         BUILDButton                     matlab.ui.control.Button
@@ -204,6 +205,7 @@ classdef GUI_exported < matlab.apps.AppBase
             app.MCG4322BGroup03UIFigure.Color = [0.7216 0.8588 0.851];
             app.MCG4322BGroup03UIFigure.Position = [100 100 899 420];
             app.MCG4322BGroup03UIFigure.Name = 'MCG4322B Group 03';
+            app.MCG4322BGroup03UIFigure.Icon = 'Logo1.png';
 
             % Create TabGroup
             app.TabGroup = uitabgroup(app.MCG4322BGroup03UIFigure);
@@ -293,7 +295,8 @@ classdef GUI_exported < matlab.apps.AppBase
             % Create Image
             app.Image = uiimage(app.MCG4322BGroup03UIFigure);
             app.Image.ScaleMethod = 'fill';
-            app.Image.Position = [18 325 371 84];
+            app.Image.Position = [1 317 98 104];
+            app.Image.ImageSource = 'Logo2.png';
 
             % Create PleaseenterusermeasurementsPanel
             app.PleaseenterusermeasurementsPanel = uipanel(app.MCG4322BGroup03UIFigure);
@@ -405,6 +408,14 @@ classdef GUI_exported < matlab.apps.AppBase
             app.YoudeservetostepintocomfortLabel.FontColor = [0.149 0.149 0.149];
             app.YoudeservetostepintocomfortLabel.Position = [405 12 479 39];
             app.YoudeservetostepintocomfortLabel.Text = 'You deserve to step into comfort';
+
+            % Create BRACEYOURSELFLabel
+            app.BRACEYOURSELFLabel = uilabel(app.MCG4322BGroup03UIFigure);
+            app.BRACEYOURSELFLabel.HorizontalAlignment = 'center';
+            app.BRACEYOURSELFLabel.FontSize = 30;
+            app.BRACEYOURSELFLabel.FontWeight = 'bold';
+            app.BRACEYOURSELFLabel.Position = [98 342 286 54];
+            app.BRACEYOURSELFLabel.Text = 'BRACE YOURSELF';
 
             % Show the figure after all components are created
             app.MCG4322BGroup03UIFigure.Visible = 'on';

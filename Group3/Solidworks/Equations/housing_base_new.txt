@@ -1,15 +1,15 @@
 "width"=0.101221
-"height"=0.080946
+"height"=0.078835
 "stop_width"=0.005000
 "inf_stop_x"=0.027955
 "superior_stop_x"=0.021901
-"superior_stop_angle"=102.203897
+"superior_stop_angle"=107.704683
 "t1"=0.005000
-"t2"=0.039553
+"t2"=0.029258
 "t3"=0.009379
 "bolt_hole_size"=0.003000
 "b1_x"=0.045823
-"b1_y"=0.031186
+"b1_y"=0.029076
 "bolt_dist"=0.042000
 "theta_p_init"=73.816587
 "bolt_hole_depth"=0.005000
@@ -17,4 +17,4 @@
 "cover_holes_diam"=0.002000
 "cover_holes_depth"=0.004000
 "cover_hole_pitch"=0.000400
-"pad_t"=0.005000
+"pad_t"=0.014017

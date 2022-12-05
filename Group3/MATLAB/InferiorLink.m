@@ -24,6 +24,7 @@ classdef InferiorLink < handle
         D_strap %Diameter of the metal contact strap
         clip_hole_D=0.0034; %velcro rivet hole diameter
         clip_hole_y1 %y distance to rivet hole
+        clip_hole_x %x distance to rivet hole
         clip_hole_dist %distance between 2 rivet holes
         pad_t1 %padding thickness
         pad_t2 %NOT USED FOR NOW
@@ -227,6 +228,7 @@ classdef InferiorLink < handle
             fprintf(fileID,'"D_strap"=%.6f\n', obj.D_strap);
             fprintf(fileID,'"clip_hole_D"=%.6f\n', obj.clip_hole_D);
             fprintf(fileID,'"clip_hole_y1"=%.6f\n', obj.clip_hole_y1);
+            fprintf(fileID,'"clip_hole_x"=%.6f\n', obj.clip_hole_x);
             fprintf(fileID,'"clip_hole_dist"=%.6f\n', obj.clip_hole_dist);
             fprintf(fileID,'"pad_t1"=%.6f\n', obj.pad_t1);
             fprintf(fileID,'"pad_t2"=%.6f\n', obj.pad_t2);

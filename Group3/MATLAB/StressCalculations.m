@@ -76,8 +76,19 @@ end
 moment_s1 = S.I*S.alpha(3) + (S.B3/2)*F_tt - (S.B3/2 - S.B2/2)*(F_scomylong + F_saylong + F_spylong + F_sspring1);
 moment_s2 = S.I*S.alpha(3) - (S.L/2)*F_saylong - (S.H4 - S.com(2) - S.H1/2)*F_saxlong - (S.L/2)*F_spylong + (S.H4 - S.com(2) - S.H1/2)*F_spxlong + ((S.L/2)-0.4*S.L)*F_sspring1 - S.com(2)*F_tn;
 
-sigma_sbend1 = -moment_s1*((S.H4-S.H3)/2) / ((S.B3*(S.H4-S.H3)^3)/12);
+sigma_sbend11 = -moment_s1*((S.H4-S.H3)/2) / ((S.B3*(S.H4-S.H3)^3)/12);
+sigma_sbend12 = moment_s1*((S.H4-S.H3)/2) / ((S.B3*(S.H4-S.H3)^3)/12);
 sigma_sbend2 = -moment_s2 * y_sbar / J_s;
+
+sigma_szbend1 = ((ZF.OA_KAM - ZF.Mk)*((S.B3/2) + S.T) /( (S.B2*S.T^3) / 12 ));
+sigma_szbend2 = -((ZF.OA_KAM - ZF.Mk)*((S.B3/2) + S.T) /( (S.B2*S.T^3) / 12 ));
+
+sigma_s2y_q1 = sigma_s2y + sigma_sbend11 + sigma_szbend1;
+sigma_s2y_q2 = sigma_s2y + sigma_sbend11 + sigma_szbend2;
+sigma_s2y_q3 = sigma_s2y + sigma_sbend12 + sigma_szbend1;
+sigma_s2y_q4 = sigma_s2y + sigma_sbend12 + sigma_szbend2;
+
+sigma_s2y = max([abs(sigma_s2y_q1), abs(sigma_s2y_q2), abs(sigma_s2y_q3), abs(sigma_s2y_q4)]);
 
 % shear
 if abs(F_tn + F_scomxlong) > abs(F_saxlong + F_spxlong)
@@ -100,7 +111,7 @@ SF.sigma_sx = S.SY/sigma_sx;
 SF.sigma_s1y = S.SY/sigma_s1y;
 SF.sigma_s2y = S.SY/sigma_s2y;
 SF.sigma_s3y = S.SY/sigma_s3y;
-SF.sigma_sbend1 = S.SY/sigma_sbend1;
+SF.sigma_sbend1 = S.SY/sigma_sbend11;
 SF.sigma_sbend2 = S.SY/sigma_sbend2;
 SF.sigma_srupture = S.SY/sigma_srupture;
 SF.tau_s1 = S.SSY/tau_s1;
@@ -173,8 +184,19 @@ end
 moment_i1 = I.I*I.alpha(3) + (I.B3/2)*F_ct - (I.B3/2 - I.B2/2)*(F_icomylong + F_iaylong + F_ipylong + F_ispring2);
 moment_i2 = I.I*I.alpha(3) - (I.L/2)*F_iaylong - (I.H4 - I.com(2) - I.H1/2)*F_iaxlong + (I.L/2)*F_ipylong - (I.H4 - I.com(2) - I.H1/2)*F_ipxlong + ((I.L/2)-0.4*I.L)*F_ispring2 + I.com(2)*F_cn;
 
-sigma_ibend1 = -moment_i1*((I.H4-I.H3)/2) / ((I.B3*(I.H4-I.H3)^3)/12);
+sigma_ibend11 = -moment_i1*((I.H4-I.H3)/2) / ((I.B3*(I.H4-I.H3)^3)/12);
+sigma_ibend12 = moment_i1*((I.H4-I.H3)/2) / ((I.B3*(I.H4-I.H3)^3)/12);
 sigma_ibend2 = -moment_i2 * y_ibar / J_i;
+
+sigma_izbend1 = ((ZF.OA_KAM - ZF.Mk)*((I.B3/2) + I.T) /( (I.B2*I.T^3) / 12 ));
+sigma_izbend2 = -((ZF.OA_KAM - ZF.Mk)*((I.B3/2) + I.T) /( (I.B2*I.T^3) / 12 ));
+
+sigma_i2y_q1 = sigma_i2y + sigma_ibend11 + sigma_izbend1;
+sigma_i2y_q2 = sigma_i2y + sigma_ibend11 + sigma_izbend2;
+sigma_i2y_q3 = sigma_i2y + sigma_ibend12 + sigma_izbend1;
+sigma_i2y_q4 = sigma_i2y + sigma_ibend12 + sigma_izbend2;
+
+sigma_i2y = max([abs(sigma_i2y_q1), abs(sigma_i2y_q2), abs(sigma_i2y_q3), abs(sigma_i2y_q4)]);
 
 % shear
 if abs(F_cn + F_icomxlong) > abs(F_iaxlong + F_ipxlong)
@@ -196,7 +218,7 @@ SF.sigma_ix = I.SY/sigma_ix;
 SF.sigma_i1y = I.SY/sigma_i1y;
 SF.sigma_i2y = I.SY/sigma_i2y;
 SF.sigma_i3y = I.SY/sigma_i3y;
-SF.sigma_ibend1 = I.SY/sigma_ibend1;
+SF.sigma_ibend1 = I.SY/sigma_ibend11;
 SF.sigma_ibend2 = I.SY/sigma_ibend2;
 SF.sigma_irupture = I.SY/sigma_irupture;
 SF.tau_i1 = I.SSY/tau_i1;
@@ -373,10 +395,10 @@ tau_ia = (4*norm(I.F_ia))/pi*Bolt.D;
 tau_ip = (4*norm(I.F_ip))/pi*Bolt.D;
 
 % SAFETY FACTOR CALCULATIONS
-SF.tau_sa = Bolt.SY/tau_sa; 
-SF.tau_sp = Bolt.SY/tau_sp; 
-SF.tau_ia = Bolt.SY/tau_ia; 
-SF.tau_ip = Bolt.SY/tau_ip; 
+SF.tau_sa = 0.58*Bolt.SY/tau_sa; 
+SF.tau_sp = 0.58*Bolt.SY/tau_sp; 
+SF.tau_ia = 0.58*Bolt.SY/tau_ia; 
+SF.tau_ip = 0.58*Bolt.SY/tau_ip; 
 
 %% Bearings
 

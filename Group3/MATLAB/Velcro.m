@@ -10,6 +10,7 @@ classdef Velcro < handle
         Loop_D %Velcro loop diameter
         t %velcro thickness
         fold_back_L %Length of velcro folded back on itself
+        L_strap %Length of fabic strap
         
         %Physical Properties
         G = 96526.6 % Shear strength of velcro (Pa)
@@ -29,7 +30,7 @@ classdef Velcro < handle
             
             if(type == 1)
                 fileID = fopen('../Solidworks/Equations/velcro_thigh.txt','w');
-                fprintf(fileID,'"L"=%.6f\n', obj.L);
+                fprintf(fileID,'"L"=%.6f\n', obj.L_strap);
                 fprintf(fileID,'"w"=%.6f\n', obj.W);
                 fprintf(fileID,'"Loop_D"=%.6f\n', obj.Loop_D);
                 fprintf(fileID,'"t"=%.6f\n', obj.t);
@@ -39,7 +40,7 @@ classdef Velcro < handle
             
             else
                 fileID = fopen('../Solidworks/Equations/velcro_calf.txt','w');
-                fprintf(fileID,'"L"=%.6f\n', obj.L);
+                fprintf(fileID,'"L"=%.6f\n', obj.L_strap);
                 fprintf(fileID,'"w"=%.6f\n', obj.W);
                 fprintf(fileID,'"Loop_D"=%.6f\n', obj.Loop_D);
                 fprintf(fileID,'"t"=%.6f\n', obj.t);

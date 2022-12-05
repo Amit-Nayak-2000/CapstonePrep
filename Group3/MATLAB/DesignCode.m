@@ -62,9 +62,11 @@ while(SuperiorSatisfied == 0)
     if(MinSup > 4)
         %decrease thickness of link.
         if(S.T > 0.0039)
-            S.T = 0.9*S.T;
-        else
+            S.T = 0.78*S.T;
+        elseif (S.B2 > 0.0134)
             S.B2 = 0.75*S.B2;
+        else
+            break;
         end
         %recalculate inertial properties of link
         S = calculate_inertial_props(S);
@@ -99,9 +101,11 @@ while(InferiorSatisfied == 0)
     if(MinInf > 4)
         %decrease thickness of link if possible, else decrease B2.
         if(In.T > 0.0039)
-            In.T = 0.9*In.T;
-        else
+            In.T = 0.78*In.T;
+        elseif (In.B2 > 0.0134)
             In.B2 = 0.9*In.B2;
+        else
+            break;
         end
         %recalculate inertial properties
         In = calculate_inertial_props(In);
@@ -415,19 +419,20 @@ P.outputDimensions();
 
 %Superior Link
 S.springarmholepos = 0.4*S.L;
-S.H_holes = 0.5*(S.B1-S.L);
-S.pad_t1 = 0.005;
-S.pad_t2 = 2*S.pad_t1;
-S.D_strap = S.B3+2*S.pad_t1;
+S.H_holes = 0.75*(S.B1-S.L);
+%S.pad_t1 = 0.005;
+%S.pad_t2 = 2*S.pad_t1;
+%S.D_strap = S.B3+2*S.pad_t1;
+
 %Superior parametirzation is continued later because housing and velcro
 %parameters are needed for some parametrizing equations
 
 %Inferior Link
 In.springarmholepos = 0.4*In.L;
-In.H_holes = 0.5*(In.B1-In.L);
-In.pad_t1=S.pad_t1+0.5*(S.B3-In.B3);
-In.pad_t2=2*In.pad_t1;
-In.D_strap=S.D_strap+0.5*(S.T-In.T);
+In.H_holes = 0.75*(In.B1-In.L);
+%In.pad_t1=S.pad_t1+0.5*(S.B3-In.B3);
+%In.pad_t2=2*In.pad_t1;
+%In.D_strap=S.D_strap+0.5*(S.T-In.T);
 %Superior parametirzation is continued later because housing and velcro
 %parameters are needed for some parametrizing equations
 
@@ -444,11 +449,11 @@ end
 
 T1.L_arm_main=S.springarmholepos-0.5*T1.loop_diam*cosd(45);
 T1.L_arm_sub=A.springarmholepos-0.5*T1.loop_diam*cosd(45);
-T1.outputDimensions(1);
 
-T2.L_arm_main=In.springarmholepos-0.5*T2.loop_diam*cosd(45);
-T2.L_arm_sub=P.springarmholepos-0.5*T2.loop_diam*cosd(45);
-T2.outputDimensions(2);
+
+T2.L_arm_main=In.springarmholepos; %-0.5*T2.loop_diam*cosd(45);
+T2.L_arm_sub=P.springarmholepos; %-0.5*T2.loop_diam*cosd(45);
+
 
 
 %standoff and washer
@@ -482,12 +487,21 @@ Stoff2.outputDimensions(2);
 Stoff3.ID=0.0032;
 Stoff3.OD=0.0045;
 Stoff3.H=T1.d+0.0005; %maybe come back and change this
+Stoff3.Ha=Stoff1.H-T1.height; 
 Stoff3.outputDimensions(3);
 
 Wash.ID=0.0032;
 Wash.OD=0.006;
 Wash.H=0.0006;
 Wash.outputDimensions(4);
+
+%spring pt 2
+
+% T1.height=Stoff1.H-2*T2.d;
+% T2.height=Stoff2.H-2*T2.d;
+
+T1.outputDimensions(1);
+T2.outputDimensions(2);
 
 %Bearing
 Brng.outputDimensions();
@@ -518,8 +532,6 @@ Hbase.theta_p_init=180-P.theta0;
 Hbase.bolt_hole_depth=Hbase.t1;
 Hbase.cover_holes_diam=0.002;
 Hbase.pad_t=0.005;
-
-Hbase.outputDimensions(1);
 
 %Housing cover
 Hcover.stop_width=Hbase.stop_width;
@@ -603,18 +615,41 @@ Blt.D=0.002;
 Blt.L=(floor((Hbase.bolt_hole_depth+Hcover.t1)*1000))/1000;
 Blt.outputDimensions(6);
 
+%Superior and inferior links continued
+if(0.5*(2*(Hbase.t3+Hbase.t1+Hbase.pad_t)+0.65*thighdiameter)>thighdiameter)
+    %Superior 2
+    S.D_strap = 0.5*(2*(Hbase.t3+Hbase.t1+Hbase.pad_t)+0.65*thighdiameter); %(2*(Hbase.t3+Hbase.t1+Hbase.pad_t))/0.35;
+    S.pad_t1 = 0.5*(2*S.D_strap-thighdiameter);
+    S.pad_t2 = 0;
+else
+    S.pad_t1 = 0.005;
+    S.pad_t2 = 0;
+    S.D_strap = 0.5*thighdiameter+S.pad_t1;
+    Hbase.pad_t = S.D_strap-0.5*0.65*thighdiameter-Hbase.t3-Hbase.t1;
+end
+
+%Inferior 2
+In.D_strap=S.D_strap+0.5*(S.T-In.T);
+In.pad_t1=0.5*(2*In.D_strap-calfdiameter);
+In.pad_t2 = 0;
+
+
+Hbase.outputDimensions(1);
+
 %Velcro
 %Thigh Velcro
+VT.L_strap = 2*S.D_strap+2*S.T;
 VT.Loop_D=0.008;
 VT.t=0.001;
-VT.fold_back_L=0.5*VT.L;
+VT.fold_back_L=0.5*VT.L_strap;
 
 VT.outputDimensions(1);
 
 %Calf Velcro
+VC.L_strap = 2*In.D_strap+2*In.T;
 VC.Loop_D=0.008;
 VC.t=0.001;
-VC.fold_back_L=0.5*VC.L;
+VC.fold_back_L=0.5*VC.L_strap;
 
 VC.outputDimensions(2);
 
@@ -628,25 +663,28 @@ V_buck.outputDimensions();
 
 %Rivet
 Blt.D=0.0032;
-Blt.L=V_buck.t+max([S.T,In.T]);
+Blt.L=V_buck.t+In.T;
+Blt.Ls=V_buck.t+S.T;
 Blt.outputDimensions(7);
 
-%Superior link cont'd
+%Superior link 3
 S.clip_hole_y1=0.25*V_buck.slot_h;
 S.clip_hole_dist=0.5*V_buck.slot_h;
+S.clip_hole_x=0.5*V_buck.attach_w;
 S.unpad_L1=(2/3)*Hbase.width;
 S.outputDimensions();
 
-%Inferior link cont'd
-In.clip_hole_y1=0.25*V_buck.slot_h;
-In.clip_hole_dist=0.5*V_buck.slot_h;
-In.unpad_L1=In.H2;
-In.outputDimensions();
+% %Inferior link 3
+% In.clip_hole_y1=0.25*V_buck.slot_h;
+% In.clip_hole_dist=0.5*V_buck.slot_h;
+% In.unpad_L1=In.H2;
+% In.outputDimensions();
 
 
-%Inferior link cont'd
+%Inferior link 3
 In.clip_hole_y1=0.25*V_buck.slot_h;
 In.clip_hole_dist=0.5*V_buck.slot_h;
+In.clip_hole_x=0.5*V_buck.attach_w;
 In.unpad_L1=(2/3)*Hbase.width;
 In.outputDimensions();
 

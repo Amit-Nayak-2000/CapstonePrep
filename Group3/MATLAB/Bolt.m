@@ -8,6 +8,7 @@ classdef Bolt < handle
         L %Length of bolt
         D %Diameter of bolt     
         L_thread %Threaded portion of the bolt 
+        Ls %For rivet only - used for different superior config
         
         %Material Properties
         E = 193e9; % Elastic modulus of 304 stainless steel (Pa)
@@ -93,6 +94,7 @@ classdef Bolt < handle
                 fileID = fopen('../Solidworks/Equations/rivet.txt','w');
                 fprintf(fileID,'"d"=%.6f\n',obj.D);
                 fprintf(fileID,'"L"=%.6f\n', obj.L);
+                fprintf(fileID,'"Ls"=%.6f\n', obj.Ls);
                 fclose(fileID);
             end
             

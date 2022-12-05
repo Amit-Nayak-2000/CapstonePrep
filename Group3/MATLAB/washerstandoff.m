@@ -4,6 +4,7 @@ classdef washerstandoff < handle
         ID %Inner Diameter
         OD %Outer Diameter
         H %Height of washer/standoff
+        Ha %Height of anterior standoff
     end
     
     methods
@@ -32,6 +33,7 @@ classdef washerstandoff < handle
                 fprintf(fileID,'"ID"=%.6f\n', obj.ID);
                 fprintf(fileID,'"OD"=%.6f\n', obj.OD);
                 fprintf(fileID,'"H"=%.6f\n', obj.H);
+                fprintf(fileID,'"Ha"=%.6f\n', obj.Ha);
                 fclose(fileID); 
                 
             
